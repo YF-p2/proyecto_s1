@@ -1,0 +1,5 @@
+    Generamos el proyecto dentro de docker por aislamiento y no generar dependencia
+en local con PHP y Composer, asi todo queda clean.
+
+***
+docker run --rm -v ${PWD}:/app composer create-project codeigniter4/appstarter temp-ci4
