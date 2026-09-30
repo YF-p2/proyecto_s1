@@ -70,7 +70,7 @@ class Clientes extends BaseController
             return ($this->response
                 ->setStatusCode(404)
                 ->setJSON([
-                    'error' => 'Cliente con ID $id no encontrado'
+                    'error' => 'Cliente con ID $id no encontrado' //lo manejamos nosotros
                 ])
             );
         }
