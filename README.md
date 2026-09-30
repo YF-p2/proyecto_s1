@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/* ###elimina los paquetes instalados por debian/ubuntu -> reduccion tamaño en la img
 
-###el comando se inlcuye en img de php en docker para compilar e instalar extensiones PHP de forma automatica
+###En el comando se inlcuye en img de php en docker para compilar e instalar extensiones PHP de forma automatica
 INTL: necesario para CodeIgniter, sino peta
 MYSQL y asi: para conectarse a las BD de MySQL y MariaDB
 PDO: interfaz ligera para acceder a la BD
@@ -88,8 +88,8 @@ CI_ENVIRONMENT = development
 
 database.default.hostname = db
 database.default.database = ci4_db
-database.default.username = ci4_user
-database.default.password = ci4_password
+database.default.username = dani
+database.default.password = ci4pass
 database.default.DBDriver = MySQLi
 database.default.port = 3306
 
@@ -120,7 +120,7 @@ docker compose exec app php spark migrate
 
 Para el SEEDER:
 -------------------
-#DEFINE qué DATOS se van a insertar
+#DEFINE qué DATOS de prueba se van a insertar
 docker compose exec app php spark make:seeder ClientsSeeder
 
 #INSERTA los registros
@@ -159,3 +159,82 @@ $routes->get('api/health', 'Health::index');
 --------
 
 Comprobamos conexion: curl.exe http://localhost:8080/api/health
+
+
+===================================
+SEMANA 2
+===================================
+
+***
+PUNTO 1: DISEÑO MIGRACION Y RELACIONES:
+
+Debemos crear los archivos que definen las tablas y luego introducirle los campos manualmente.
+
+Utilizamos el comando para crear las tablas:
+docker compose exec app php spark make:migration <nombre tabla> (Cliente)
+
+Luego se introducen los campos, y una vez terminado ejecutamos:
+docker compose exec app php spark migrate
+
+
+2026/09/30
+***
+PUNTO 2: CREAR MODELS Y CONTROLLERS
+
+Creamos los modelos con:
+docker compose exec app php spark make:model Cliente
+
+--- El nombre del modelo creado debe coincidor con el nombre puesto en el comnado de la migracion ---
+
+Para crear los controllers:
+docker compose exec app php spark make:controller Clientes
+
+--- El nombre del controller debe coincidir con el nombre de la tabla creada (se encuentra al final de la migration correspondiente) --- 
+
+Una vez creados los modelos, debemos añadir los "campos minimos" (pdf tabla) en la variable "$allowedFields". No hace falta añadir los valores autoincrementales (id)
+
+Si hay campo 'created/updated_at' ponermos "$useTimeStamps" a TRUE.
+
+
+***
+PUNTO 3: CREACION DE SEEDERS
+
+Una vez que ya tenemos las migraciones hechas, procedemos a crear los SEEDERS
+---datos medio randoms para rellenar tabla---
+
+Los datos se obtienen con la librería FAKER
+
+docker compose exec app php spark db:seed ClienteSeeder
+
+----
+Otros comandos que se usaron por errores de typo/escribir mal o no escribir alguna linea:
+
+# Intento inicial de refrescar todas las migraciones (detectó el fallo de rollback a medio camino)
+docker compose exec app php spark migrate:refresh
+
+# Forzar la reversión completa de los lotes ejecutados
+docker compose exec app php spark migrate:rollback --all
+
+# Volver a ejecutar las migraciones desde cero tras corregir el código en down() y up()
+docker compose exec app php spark migrate
+
+
+Comprobación de que las tablas de la BD tienen datos:
+docker compose exec app php spark db:table clientes 
+
+
+***
+PUNTO 4: IMPLEMENTAR CRUD REST
+
+Como estamos creando una API, en los controladores utilizaremos 'response' y settearemos los datos en un JSON con 'setJSON'. En este caso también incluimos un 'setStatusCode()' para indicar el code de error
+
+
+TABLA QUE RELACIONA LOS ENDPOINTS y SUS METODOS -> deben tener esos nombres para que funcione el enrutamiento de Router
+
+| Verbo HTTP | Endpoint (Ejemplo) | Método del Controlador | Propósito |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/api/clientes` | `index()` | Listar todos los clientes |
+| **GET** | `/api/clientes/{id}` | `show($id)` | Mostrar un cliente por su ID |
+| **POST** | `/api/clientes` | `create()` | Crear un nuevo cliente |
+| **PUT / PATCH** | `/api/clientes/{id}` | `update($id)` | Modificar un cliente existente |
+| **DELETE** | `/api/clientes/{id}` | `delete($id)` | Borrar un cliente por su ID |

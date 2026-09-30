@@ -19,6 +19,10 @@ class Cliente extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'cif'=>[
+                'type' => 'VARCHAR',
+                'constraint' => 9,
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,

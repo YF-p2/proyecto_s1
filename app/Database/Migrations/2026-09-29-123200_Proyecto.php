@@ -50,6 +50,6 @@ class Proyecto extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('proyecto');
+        $this->forge->dropTable('proyectos');
     }
 }
