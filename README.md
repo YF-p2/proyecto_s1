@@ -238,3 +238,5 @@ TABLA QUE RELACIONA LOS ENDPOINTS y SUS METODOS -> deben tener esos nombres para
 | **POST** | `/api/clientes` | `create()` | Crear un nuevo cliente |
 | **PUT / PATCH** | `/api/clientes/{id}` | `update($id)` | Modificar un cliente existente |
 | **DELETE** | `/api/clientes/{id}` | `delete($id)` | Borrar un cliente por su ID |
+
+
