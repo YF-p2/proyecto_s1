@@ -29,3 +29,6 @@ $routes->group('api', static function ($routes) {
     $routes->delete('api/clientes/(:num)', 'ClienteController::delete/$id');
     */
 });
+
+
+$routes->set404Override('App\Controllers\Errors::notFound');

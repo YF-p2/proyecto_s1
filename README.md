@@ -178,6 +178,7 @@ docker compose exec app php spark migrate
 
 
 2026/09/30
+--------------------------------
 ***
 PUNTO 2: CREAR MODELS Y CONTROLLERS
 
@@ -240,3 +241,57 @@ TABLA QUE RELACIONA LOS ENDPOINTS y SUS METODOS -> deben tener esos nombres para
 | **DELETE** | `/api/clientes/{id}` | `delete($id)` | Borrar un cliente por su ID |
 
 
+
+
+2026/10/01
+--------------------------------
+Comprobacion de controllers usando terminal:
+
+curl.exe -i -X GET http://localhost:8080/api/clientes
+curl.exe -i -X GET http://localhost:8080/api/clientes/1
+(explicacion en pto 3 de problemas)
+$body = @{
+        nombre = "Cliente Terminal"
+        cif = "A12345678"
+        email = "terminal@test.com"
+        telefono = "600123456"
+        estado = "activo"
+    } | ConvertTo-Json -Compress
+
+Invoke-RestMethod -Uri "http://localhost:8080/api/clientes" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
+
+curl.exe -i -X DELETE http://localhost:8080/api/clientes/6
+
+
+***
+Punto 7: Gestionar recursos inexistentes y errores.
+
+Se añade una nueva ruta en Routes con el metodo 'set404Override' para gestionar las url que no coincidan, redirigiendolas al método notFound del controller 'Errors'
+
+
+***
+Punto 8: PAGINACION
+
+Se crea un 'trait' para la reutilizacion de codigo en los distintos controllers.
+
+
+
+PROBLEMAS:
+ ** setJSON no actualizaba bien los datos por usar variable errónea. Se hace una segunda consulta/búsqueda y se pasa la nueva variable.
+
+ ** Error 404 al entrar en api/clientes. Culpa de hacer rename de la class y del controller. 
+    Limpiamos caché, regeneramos mapa de clases en composer y comprobamos rutas con:
+        docker compose exec app php spark cache:clear
+        docker compose exec app composer dump-autoload
+        docker compose exec app php spark routes
+
+**Error en create al hacer parse Json to string -> mirando los logs -> 
+    CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+    [Method: POST, Route: api/clientes]
+
+    Al parecer la terminal de VSCode elimina las comillas rompiedo el fotmato JSON. Se procede a realizar las peticiones con 'Invoke-RestMethod' y una variable con los datos en vez de poner todo junto en el mismo comando.
+
+**Al intentar actualizar un cliente da error debido al is_unique aplicado sobre cif y mail. Se decide hacer comporbacion manual y quitar la clausula.

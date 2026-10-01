@@ -35,7 +35,14 @@ class Tarea extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        "proyecto_id" => "required|integer",
+        "titulo" => "required|string|min_length[2]|max_length[255]",
+        "descripcion" => "permit_empty|string",
+        "prioridad" => "string|in_list[baja,media,alta]",
+        "estado" => "string|in_list[pendiente,en_proceso,completedo]",
+        "fecha_limite" => "permit_empty|valid_date",
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

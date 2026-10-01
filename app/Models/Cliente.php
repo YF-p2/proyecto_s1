@@ -33,8 +33,43 @@ class Cliente extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        "nombre" => "required|string|min_length[2]|max_length[255]",
+        "cif" => "required|string|min_length[9]|max_length[9]",
+        "email" => "required|valid_email|max_length[255]",
+        "telefono" => "permit_empty|string|min_length[9]|max_length[9]",
+        "estado" => "string|in_list[activo,inactivo]",
+    ];
+    protected $validationMessages   = [
+        "nombre" => [
+            "required" => "El nombre es obligatorio",
+            "string" => "El nombre debe ser una cadena de texto",
+            "min_length" => "El nombre debe tener al menos 2 caracteres",
+            "max_length" => "El nombre no puede tener más de 255 caracteres"
+        ],
+        "cif" => [
+            "required" => "El CIF es obligatorio",
+            "string" => "El CIF debe ser una cadena de texto",
+            "min_length" => "El CIF debe tener 9 caracteres",
+            "max_length" => "El CIF debe tener 9 caracteres",
+            "is_unique" => "El CIF ya está en uso"
+        ],
+        "email" => [
+            "required" => "El email es obligatorio",
+            "valid_email" => "El email no es válido",
+            "max_length" => "El email no puede tener más de 255 caracteres",
+            "is_unique" => "El email ya está en uso"
+        ],
+        "telefono" => [
+            "string" => "El teléfono debe ser una cadena de texto",
+            "min_length" => "El teléfono debe tener 9 caracteres",
+            "max_length" => "El teléfono no puede tener más de 9 caracteres"
+        ],
+        "estado" => [
+            "string" => "El estado debe ser una cadena de texto",
+            "in_list" => "El estado no es válido"
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

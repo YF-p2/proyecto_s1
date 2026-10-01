@@ -16,8 +16,9 @@ class Proyecto extends Model
         'cliente_id',
         'nombre',
         'descripcion',
+        'estado',
         'fecha_inicio',
-        'fecha_fin',   
+        'fecha_fin',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -34,7 +35,13 @@ class Proyecto extends Model
     //protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'cliente_id'   => 'required|is_not_unique[clientes.id]', // Valida que el cliente exista
+        'nombre'       => 'required|min_length[3]|max_length[255]',
+        'descripcion'  => 'permit_empty|string',
+        'fecha_inicio' => 'required|valid_date[Y-m-d]',
+        'fecha_fin'    => 'permit_empty|valid_date[Y-m-d]',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

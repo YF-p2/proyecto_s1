@@ -1,0 +1,7 @@
+{
+    "nombre": "Cliente TerminalModificado",
+    "cif": "A12345678",
+    "email": "terminal@test.com",
+    "telefono": "600123456",
+    "estado": "activo"
+}
