@@ -23,7 +23,7 @@ class ClienteController extends BaseController
     public function index()
     {
 
-        $clientes = $this->modelo->findAll();
+        //$clientes = $this->modelo->findAll();
         return $this->response->setJSON($this->getPagination($this->modelo));
     }
 

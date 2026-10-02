@@ -295,3 +295,28 @@ PROBLEMAS:
     Al parecer la terminal de VSCode elimina las comillas rompiedo el fotmato JSON. Se procede a realizar las peticiones con 'Invoke-RestMethod' y una variable con los datos en vez de poner todo junto en el mismo comando.
 
 **Al intentar actualizar un cliente da error debido al is_unique aplicado sobre cif y mail. Se decide hacer comporbacion manual y quitar la clausula.
+
+
+
+2026/10/2
+--------------------------------
+===================================
+SEMANA 3: REACT y Next.js
+===================================
+
+* Creamos la carpeta 'frontend' y en terminal ejecutamos el siguiente comando para crear una app de Next.js:
+     npx create-next-app@latest frontend
+
+* Luego nos movemos a la carpeta en terminal y ejecutamos:
+    npm run dev
+para correr la app
+
+* En la raíz de 'frontend' creamos un ".env.local" encargasdo de definir rutas de manera local. Centralizamos la forma de establecer las URLs.
+
+* Se crea un pequeño fetching de los datos de clientes en 'api.js' usando la URL definida en 'env.local'. 
+
+
+
+PROBLEMAS:
+    ** Al hacer fetching nos da error "failed to fetch". En "proyecto/app/Config/Cors" ponemos el localhost del front en AllowedOrigins y también establecemos lo allowedMethods. Y en "proyecto/app/Config/Filters" buscamos '$global' y en before escribimos 'cors' para que codeignite aplque CORS antes de ejecutar los controladores.
+        ->

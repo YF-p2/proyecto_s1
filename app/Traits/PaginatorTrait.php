@@ -20,11 +20,17 @@ trait PaginatorTrait
         //Objeto Pager que se crea al usar 'paginate()'
         $pager = $modelo->pager;
 
+        $totalPages = $pager->getPageCount();
+        $currentPage = $pager->getCurrentPage();
+
         return[
-            'data' => $data,
-            'totalPages' => $pager->getPageCount(),
-            'total' => $pager->getTotal(),
-            'perPage' => $resPerPage,
+            'data'        => $data,
+            'currentPage' => $currentPage,
+            'totalPages'  => $totalPages,
+            'total'       => $pager->getTotal(),
+            'perPage'     => $resPerPage,
+            'hasNext'     => $currentPage <$totalPages,
+            'hasPrev'     => $currentPage > 1,
         ];
     }
 }
