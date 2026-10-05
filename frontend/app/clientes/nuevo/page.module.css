@@ -1,0 +1,46 @@
+
+
+.formContainer {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario{
+    border: solid 2px blue;
+    border-radius: 12px ;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: auto;
+    padding: 2rem;
+
+    position: absolute;
+
+    div{
+        margin: 6px;
+
+        input{
+            padding: 6px;
+        }
+    }
+
+    .selectContainer{
+        display: flex;
+        flex-direction: row;
+
+        select{
+            height: 2rem;
+        }
+    }
+}
+
+.errorForm{
+    font-size: small;
+    color: rgb(197, 2, 2);
+}

@@ -23,6 +23,18 @@ class ClienteController extends BaseController
     public function index()
     {
 
+        $search = $this->request->getGet('search');
+        $estado = $this->request->getGet('estado');
+
+
+        if ($search) {
+            return $this->searchCliente($search);
+        }
+
+        if($estado){
+            return $this->filterEstado($estado);
+        }
+
         //$clientes = $this->modelo->findAll();
         return $this->response->setJSON($this->getPagination($this->modelo));
     }
@@ -81,7 +93,7 @@ class ClienteController extends BaseController
             return $this->notFoundCliente($id);
         }
 
-        
+
         $data = $this->request->getJSON(true);
 
 
@@ -157,5 +169,37 @@ class ClienteController extends BaseController
                 'error' => 'Not found',
                 'message' => "Usuario con ID $id no ha sido encontrado"
             ])->setStatusCode(404);
+    }
+
+    private function searchCliente(String $cif)
+    {
+
+        $cliente = $this->modelo->where('cif', $cif)->first();
+
+        if (!$cliente) {
+            return  $this->notFoundCliente($cif);
+        }
+
+        return $this->response->setJSON($cliente);
+    }
+
+    private function filterEstado(String $estado)
+    {
+
+        //no aplicamos un findall porque sino no se aplica la paginación y nos devuelve
+        //la consulta directamente sin paginar.
+        $clientes = $this->modelo->where('estado', $estado);
+
+        if(!$clientes){
+            
+            return $this->response
+                ->setJSON([
+                    'status' => 404,
+                    'error' => 'Not found',
+                    'message' => "No se encontraron clientes con estado $estado"
+                ])->setStatusCode(404);
+        }
+
+        return $this->response->setJSON($this->getPagination($clientes));
     }
 }

@@ -1,0 +1,20 @@
+.containerClientes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.unCliente{
+    width: 240px;
+
+    border-radius: 8px;
+    border: solid 1px red;
+    margin: 12px;
+    p{
+        text-align: center;
+    }
+}
