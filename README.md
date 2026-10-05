@@ -320,3 +320,15 @@ para correr la app
 PROBLEMAS:
     ** Al hacer fetching nos da error "failed to fetch". En "proyecto/app/Config/Cors" ponemos el localhost del front en AllowedOrigins y también establecemos lo allowedMethods. Y en "proyecto/app/Config/Filters" buscamos '$global' y en before escribimos 'cors' para que codeignite aplque CORS antes de ejecutar los controladores.
         ->
+
+
+2026/10/4
+--------------------------------
+
+* Creacion de parte del front clientes, menu, formulario de creacion nuevo user/cliente
+
+
+PROBLMEAS:
+** Fetching de datos. 
+
+** CORS y OPTIONS al intentar crear un nuevo user -> HAY QUE CORREGIR!!!
