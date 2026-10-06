@@ -1,32 +1,52 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function getClientes(){
-    const response = await fetch(`${API_URL}/api/clientes`)
+
+
+export async function getClientes(page=1, search=""){
+
+    const params = new URLSearchParams();
+    
+    params.set("page", page);
+
+    if(search){
+        params.set("search", search)
+    }
+
+    const response = await fetch(`${API_URL}/api/clientes?${params.toString()}`)
 
     if(!response.ok){
-        throw new Error('No se pueden obtener la lista de clientes')
+        throw new Error('No se puede obtener la lista de clientes')
     }
     
     return response.json()
 }
 
+
+
 export async function createCliente(data){
     const response = await fetch(`${API_URL}/api/clientes`, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json", //IDICAR AL BACK QUE ENVIAMOS DATOS EN JSON
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-    })
+    });
+
+    const result = await response.json();
+
+    console.log("STATUS:", response.status);
+    console.log("RESULT:", JSON.stringify(result, null, 2));
 
     if (!response.ok) {
-        throw new Error("No se ha podido crear el cliente");
+        throw new Error(
+            result.errors
+                ? Object.values(result.errors).join(", ")
+                : "No se ha podido crear el cliente"
+        );
     }
 
-    return response.json();
-    
+    return result;
 }
-
 
 
 export async function getProyectos(){

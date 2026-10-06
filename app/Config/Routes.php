@@ -18,6 +18,8 @@ generamos un grupo "api" que engloba las diferentes rutas a las 3 tablas
 
 $routes->group('api', static function ($routes) {
     $routes->resource('clientes', ['controller' => 'ClienteController']);
+    $routes->options('clientes', 'ClienteController::options');
+
     $routes->resource('proyectos', ['controller' => 'ProyectoController']);
     $routes->resource('tareas', ['controller' => 'TareaController']);
 

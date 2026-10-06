@@ -35,8 +35,8 @@ class Cliente extends Model
     // Validation
     protected $validationRules      = [
         "nombre" => "required|string|min_length[2]|max_length[255]",
-        "cif" => "required|string|min_length[9]|max_length[9]",
-        "email" => "required|valid_email|max_length[255]",
+        "cif" => "required|string|min_length[9]|max_length[9]|is_unique[clientes.cif]",
+        "email" => "required|valid_email|max_length[255]|is_unique[clientes.email]",
         "telefono" => "permit_empty|string|min_length[9]|max_length[9]",
         "estado" => "string|in_list[activo,inactivo]",
     ];

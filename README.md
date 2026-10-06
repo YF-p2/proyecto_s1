@@ -332,3 +332,37 @@ PROBLMEAS:
 ** Fetching de datos. 
 
 ** CORS y OPTIONS al intentar crear un nuevo user -> HAY QUE CORREGIR!!!
+    'inspeccionar->network' -> cliente indicaba error "preflight"
+
+
+
+2026/10/4
+--------------------------------
+
+
+* Corrección del error indicado ayer de 'PREFLIGHT'. Se soluciona yendo a app/config/cors.php y añadiendo ahí en 'allowedMethods' la opción 'OPTIONS' y en 'allowedHeaders' => ['Content-Type']. 
+
+Además, en 'Routes' añadimos una ruta que controla las peticiones 'options' y las dirige a 'ClienteController' que tiene esa función.
+
+Como la petición se genera por preflight de CORS por tener orige en localhost:3000 y la recibe localhost:8080, se genera automáticamente una petición OPTIONS. Nosotros ahora manejamos la peticiono y devolvemos el codigo 204 (No Content), esto es que la petición se procesa pero NO genera contenido para devolver.
+
+
+* Inclusión de la paginación en /Clientes
+
+* Filtro por CIF en /clientes y manejo de errores
+
+
+
+PROBLEMAS:
+    ** Al implementar el el filtrado de usuarios por search daba error por la forma de acceso a los datos. Ponemos un if en el useEffect de clientes/page para cuando filtremos convirtamos los datos en un array y que el map funcione.
+
+
+
+===================
+FuTUROS PASOS:
+
+* para editar podemos hacer clicable las targetas que hay en /clientes
+* en /clientes añadir botones de: nuevo (ir a form nuevo cli), maybe un search (buscar id/nif), sobre esta ultima pestaña añadir un boton de edit y pasarle los datos al form para que se puedan editar ez (maybe un form nuevo ???¿¿¿)
+
+* Loading de datos
+===================

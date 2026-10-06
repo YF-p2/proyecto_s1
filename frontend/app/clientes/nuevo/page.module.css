@@ -1,46 +1,107 @@
-
-
 .formContainer {
     min-height: 80vh;
+    min-height: 80dvh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 2rem 1rem;
+    box-sizing: border-box;
 }
 
-.formulario{
+.formulario {
     border: solid 2px blue;
-    border-radius: 12px ;
+    border-radius: 12px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 
-    width: 20rem;
+    width: min(20rem, 100%);
     height: auto;
     padding: 2rem;
 
-    position: absolute;
-
-    div{
-        margin: 6px;
-
-        input{
-            padding: 6px;
-        }
-    }
-
-    .selectContainer{
-        display: flex;
-        flex-direction: row;
-
-        select{
-            height: 2rem;
-        }
-    }
+    box-sizing: border-box;
 }
 
-.errorForm{
+.formulario div {
+    margin: 6px 0;
+}
+
+.formulario input {
+    padding: 6px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.formulario .selectContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.formulario select {
+    height: 2rem;
+    width: 100%;
+}
+
+.errorForm {
     font-size: small;
     color: rgb(197, 2, 2);
+    margin: 4px 0;
+}
+
+.mensajeValidar, .errorEnvio {
+    
+    width: min(20rem, calc(100% - 2rem));
+    min-height: 3rem;
+    height: auto;
+    font-weight: bolder;
+    font-size: 0.85rem;
+
+    margin: 3rem auto 0;
+    padding: 0.5rem;
+
+    box-sizing: border-box;
+
+    border-radius: 6px;
+    box-shadow: 2px 5px 9px rgba(0, 0, 0, 0.267);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    animation: desaparecer 3s forwards;
+}
+
+.errorEnvio{
+    background-color: rgba(255, 21, 21, 0.781);
+    color: white;
+}
+
+.mensajeValidar{
+    background-color: rgba(172, 255, 47, 0.521);
+}
+
+.cargando{
+    text-align: center;
+    font-size: 26px;
+    color: blue;
+}
+
+
+@keyframes desaparecer {
+    0% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }

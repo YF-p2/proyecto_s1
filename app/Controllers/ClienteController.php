@@ -31,7 +31,7 @@ class ClienteController extends BaseController
             return $this->searchCliente($search);
         }
 
-        if($estado){
+        if ($estado) {
             return $this->filterEstado($estado);
         }
 
@@ -190,8 +190,8 @@ class ClienteController extends BaseController
         //la consulta directamente sin paginar.
         $clientes = $this->modelo->where('estado', $estado);
 
-        if(!$clientes){
-            
+        if (!$clientes) {
+
             return $this->response
                 ->setJSON([
                     'status' => 404,
@@ -201,5 +201,11 @@ class ClienteController extends BaseController
         }
 
         return $this->response->setJSON($this->getPagination($clientes));
+    }
+
+
+    public function options()
+    {
+        return $this->response->setStatusCode(204);
     }
 }

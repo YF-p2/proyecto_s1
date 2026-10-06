@@ -16,6 +16,7 @@ export function useClienteForm() {
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSending, setIsSending] = useState(false);
+    const [serverError, setServerError] = useState("");
 
 
     const handleChange = (e) => {
@@ -60,6 +61,9 @@ export function useClienteForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setServerError("");
+
+
         if (validateForm()) {
             setIsSending(true);
 
@@ -77,6 +81,7 @@ export function useClienteForm() {
                 });
             } catch (error) {
                 console.error(error);
+                setServerError(error.message)
             } finally {
                 setIsSending(false);
             }
@@ -86,6 +91,7 @@ export function useClienteForm() {
     return {
         formValues,
         errors,
+        serverError,
         isSending,
         isSubmitted,
         handleChange,

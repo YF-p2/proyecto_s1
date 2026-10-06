@@ -7,6 +7,7 @@ export default function NuevoCliente() {
     const {
         formValues,
         errors,
+        serverError,
         isSending,
         isSubmitted,
         handleChange,
@@ -19,8 +20,12 @@ export default function NuevoCliente() {
                 <div className={Style.mensajeValidar}>Formulario enviado con éxito</div>
             )}
 
+            {serverError && (
+                <p className={Style.errorEnvio}>{serverError}</p>
+            )}
+
             {isSending ? (
-                <div>Enviando datos...</div>
+                <div className={Style.cargando}>Enviando datos...</div>
             ) : (
                 <div className={Style.formContainer}>
                     <form

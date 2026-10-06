@@ -1,0 +1,37 @@
+.navContainer{
+    margin: 2rem;
+
+    list-style: none;
+    
+
+}
+
+.paginationContainer{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    gap: 1rem;
+}
+
+.paginationContainer a{
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-size: 1.2rem;
+
+}
+
+.paginationContainer a.isActive{
+        cursor: default;
+        color: rgba(0, 0, 0, 0.411);
+        pointer-events: none;
+
+}
+
+
+.paginationContainer a:hover{
+    color: rgb(248, 35, 35);
+    text-decoration: underline;
+
+}
+
