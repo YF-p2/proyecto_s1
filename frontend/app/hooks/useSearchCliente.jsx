@@ -4,12 +4,21 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function useSearchForm(){
+
     const [search, setSearch] = useState("");
     const router = useRouter();
 
     const handleChange = (e) =>{
-        setSearch(e.target.value)
+        
+        const valor = e.target.value
+        setSearch(valor)
+
+        if(valor === ""){
+            router.push("/clientes")
+        }
     }
+
+
 
     const handleSubmit = (e) =>{
         e.preventDefault()
@@ -18,9 +27,12 @@ export function useSearchForm(){
 
         if(search.trim()){
             params.set("search", search.trim())
+            router.push(`/clientes?${params.toString()}`);
+        }else{
+            router.push("/clientes")
         }
 
-        router.push(`/clientes?${params.toString()}`)
+        
     }
 
     return {

@@ -12,11 +12,22 @@
     gap: 12px;
 }
 
+.containerClientes a{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+}
+.containerClientes a:hover{
+    cursor: pointer;
+}
+
 .unCliente{
     width: 240px;
 
+    border: solid 1px rgb(0, 47, 255);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.205);
     border-radius: 8px;
-    border: solid 1px blue;
     margin: 12px;
     p{
         text-align: center;
@@ -73,8 +84,32 @@
 
 }
 
+.opcionesContainer a:hover{
+    background-color: rgba(47, 120, 255, 0.205);
+}
+
 .errorMessage{
     color: red;
     font-size: 1.3rem;
 }
 
+
+.opcionesContainer input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+
+    /* icono X en SVG como fondo */
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6L6 18M6 6l12 12'/></svg>") center / contain no-repeat;
+}
+
+.opcionesContainer input[type="search"]::-webkit-search-cancel-button:hover {
+    opacity: 1;
+    background-color: rgba(255, 0, 43, 0.212);
+    border-radius: 50%;
+}

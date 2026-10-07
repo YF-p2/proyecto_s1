@@ -85,6 +85,7 @@ class ClienteController extends BaseController
         
     */
 
+
     public function update(int $id)
     {
         $cliente = $this->modelo->find($id);
@@ -93,55 +94,83 @@ class ClienteController extends BaseController
             return $this->notFoundCliente($id);
         }
 
+        $data = $this->request->getJSON(true) ?? [];
 
-        $data = $this->request->getJSON(true);
+        $errors = [];
 
+        // Comprobamos que el CIF no pertenezca a otro cliente
+        if (!empty($data['cif'])) {
+            $cifDuplicado = $this->modelo
+                ->where('cif', $data['cif'])
+                ->where('id !=', $id)
+                ->first();
 
-        $cifActual = $this->modelo
-            ->where('cif', $data['cif'])
-            ->where('id !=', $id)
-            ->first();
+            if ($cifDuplicado) {
+                $errors['cif'] = 'El CIF ya está en uso';
+            }
+        }
 
-        if ($cifActual) {
+        // Comprobamos que el email no pertenezca a otro cliente
+        if (!empty($data['email'])) {
+            $mailDuplicado = $this->modelo
+                ->where('email', $data['email'])
+                ->where('id !=', $id)
+                ->first();
+
+            if ($mailDuplicado) {
+                $errors['email'] = 'El email ya está en uso';
+            }
+        }
+
+        // Si hay duplicados, devolvemos los errores
+        if (!empty($errors)) {
             return $this->response
                 ->setStatusCode(400)
                 ->setJSON([
-                    'errors' => [
-                        'cif' => 'El CIF ya está en uso'
-                    ]
+                    'errors' => $errors
                 ]);
         }
 
-        $mailActual = $this->modelo
-            ->where('email', $data['email'])
-            ->where('id !=', $id)
-            ->first();
+        // Guardamos las reglas originales
+        $reglasOriginales = $this->modelo->getValidationRules();
 
-        if ($mailActual) {
-            return $this->response
-                ->setStatusCode(400)
-                ->setJSON([
-                    'errors' => [
-                        'email' => 'El email ya está en uso'
-                    ]
-                ]);
-        }
+        // Copiamos las reglas para el update
+        $reglasUpdate = $reglasOriginales;
 
+        // Quitamos is_unique de CIF y email para esta actualización
+        $reglasUpdate['cif'] = "required|string|min_length[9]|max_length[9]";
+        $reglasUpdate['email'] = "required|valid_email|max_length[255]";
 
+        // Aplicamos temporalmente las reglas de actualización
+        $this->modelo->setValidationRules($reglasUpdate);
+
+        var_dump($data);
+        die;
+        
         if (!$this->modelo->update($id, $data)) {
-            return ($this->response
-                ->setStatusCode(400) //solicitud mal formada
+
+            // Restauramos las reglas originales
+            $this->modelo->setValidationRules($reglasOriginales);
+
+            return $this->response
+                ->setStatusCode(400)
                 ->setJSON([
-                    'errors' => $this->modelo->errors() //error que maneja Model al validar
-                ])
-            );
+                    'errors' => $this->modelo->errors()
+                ]);
         }
 
+        // Restauramos las reglas originales
+        $this->modelo->setValidationRules($reglasOriginales);
 
-        $clienteUpd = $this->modelo->find($id);
-
-        return $this->response->setJSON($clienteUpd);
+        return $this->response->setJSON(
+            $this->modelo->find($id)
+        );
     }
+
+
+
+
+
 
     public function delete(int $id)
     {
@@ -161,7 +190,7 @@ class ClienteController extends BaseController
             ]);
     }
 
-    private function notFoundCliente(int $id)
+    private function notFoundCliente($id)
     {
         return $this->response
             ->setJSON([
@@ -190,6 +219,7 @@ class ClienteController extends BaseController
         //la consulta directamente sin paginar.
         $clientes = $this->modelo->where('estado', $estado);
 
+        /*
         if (!$clientes) {
 
             return $this->response
@@ -199,7 +229,7 @@ class ClienteController extends BaseController
                     'message' => "No se encontraron clientes con estado $estado"
                 ])->setStatusCode(404);
         }
-
+        */
         return $this->response->setJSON($this->getPagination($clientes));
     }
 

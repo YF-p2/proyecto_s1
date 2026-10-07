@@ -364,5 +364,4 @@ FuTUROS PASOS:
 * para editar podemos hacer clicable las targetas que hay en /clientes
 * en /clientes añadir botones de: nuevo (ir a form nuevo cli), maybe un search (buscar id/nif), sobre esta ultima pestaña añadir un boton de edit y pasarle los datos al form para que se puedan editar ez (maybe un form nuevo ???¿¿¿)
 
-* Loading de datos
 ===================

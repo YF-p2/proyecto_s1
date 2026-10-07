@@ -1,0 +1,45 @@
+.detalleContainer{
+    display:flex;
+    flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo {
+    text-align: center;
+}
+
+.clienteTarjeta {
+    max-width: 500px;
+    margin: 24px auto;
+    padding: 16px 24px;
+    /*border: solid 1px rgb(0, 47, 255);*/
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.205);
+    border-radius: 8px;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.acciones a {
+    text-decoration: none;
+    color: black;
+    border: solid 1px black;
+    border-radius: 6px;
+    padding: 0.3rem 0.8rem;
+}
+
+.botVolver{
+    text-decoration: none;
+    color: black;
+    padding: 0.3rem;
+
+    border: solid 1px black;
+    border-radius: 6px;
+}
+.botVolver:hover{
+    background-color: rgba(47, 120, 255, 0.205);
+}
