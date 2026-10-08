@@ -17,11 +17,14 @@ class TareaController extends BaseController
         $this->modelo = new Tarea();
     }
 
+
     public function index()
     {
         $tareas = $this->modelo->findall();
-        return $this->response->setJSON($this->getPagination($this->modelo));
+
+        return $this->response->setJSON($tareas);
     }
+
 
     public function show($id = null){
         $tarea = $this->modelo->find($id);

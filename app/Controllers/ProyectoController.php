@@ -18,11 +18,13 @@ class ProyectoController extends BaseController
         $this->modelo = new Proyecto();
     }
     
+
     public function index()
     {
-        $proyectos = $this->modelo->findAll();
-        return $this->response->setJSON($this->getPagination($this->modelo));
+        //$proyectos = $this->modelo->findAll();
+        return $this->response->setJSON($this->getPagination($this->modelo, 6));
     }
+
 
     public function show($id = null)
     {

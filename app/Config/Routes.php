@@ -23,7 +23,11 @@ $routes->group('api', static function ($routes) {
 
     $routes->resource('clientes', ['controller' => 'ClienteController']);
 
+    $routes->options('proyectos', 'ProyectoController::options');
+    $routes->options('proyectos/(:num)', 'ProyectoController::options');
+
     $routes->resource('proyectos', ['controller' => 'ProyectoController']);
+
     $routes->resource('tareas', ['controller' => 'TareaController']);
 
     /*

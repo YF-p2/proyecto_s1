@@ -1,0 +1,22 @@
+.containerLoading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.containerError {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.emptyMessage {
+    text-align: center;
+    padding: 2rem;
+}

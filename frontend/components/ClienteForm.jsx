@@ -97,6 +97,9 @@ export default function ClienteForm({initialValues, clienteId}) {
                                 onChange={handleChange}
                                 placeholder="Teléfono:"
                             />
+                            {errors.telefono && (
+                                <p className={Style.errorForm}>{errors.telefono}</p>
+                            )}
                         </div>
 
                         <div className={Style.selectContainer}>

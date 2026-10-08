@@ -72,18 +72,6 @@ class ClienteController extends BaseController
         );
     }
 
-    /*
-    public function create()
-    {
-        $raw = $this->request->getBody();
-
-        return $this->response
-            ->setJSON([
-                'body' => $raw
-            ]);
-    }
-        
-    */
 
 
     public function update(int $id)
@@ -95,7 +83,6 @@ class ClienteController extends BaseController
         }
 
         $data = $this->request->getJSON(true) ?? [];
-
         $errors = [];
 
         // Comprobamos que el CIF no pertenezca a otro cliente
@@ -144,9 +131,7 @@ class ClienteController extends BaseController
         // Aplicamos temporalmente las reglas de actualización
         $this->modelo->setValidationRules($reglasUpdate);
 
-        var_dump($data);
-        die;
-        
+
         if (!$this->modelo->update($id, $data)) {
 
             // Restauramos las reglas originales
@@ -170,8 +155,6 @@ class ClienteController extends BaseController
 
 
 
-
-
     public function delete(int $id)
     {
         $cliente = $this->modelo->find($id);
@@ -190,6 +173,8 @@ class ClienteController extends BaseController
             ]);
     }
 
+
+    
     private function notFoundCliente($id)
     {
         return $this->response
@@ -199,6 +184,8 @@ class ClienteController extends BaseController
                 'message' => "Usuario con ID $id no ha sido encontrado"
             ])->setStatusCode(404);
     }
+
+
 
     private function searchCliente(String $cif)
     {
@@ -211,6 +198,8 @@ class ClienteController extends BaseController
 
         return $this->response->setJSON($cliente);
     }
+
+
 
     private function filterEstado(String $estado)
     {

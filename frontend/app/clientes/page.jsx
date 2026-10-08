@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getClientes } from "../../services/api";
+import { useSearchParams } from "next/navigation";
+import { useSearchForm } from "../hooks/useSearchCliente";
 
 import Styles from "./page.module.css";
 import Pagination from "../../components/Pagination";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link"
-import { useSearchForm } from "../hooks/useSearchCliente";
+import EstadoPag from "@/components/EstadoPag";
 
 
 
@@ -77,9 +78,7 @@ export default function Clientes() {
                 </Link>
 
                 <form onSubmit={handleSubmit}>
-
                     <input
-
                         type="search"
                         placeholder="Buscar cliente por CIF"
                         value={searchInput}
@@ -90,33 +89,22 @@ export default function Clientes() {
 
 
             <div className={Styles.containerClientes}>
-                {loading ? (
-                    <div className={Styles.containerLoading}>
-                        <svg fill="hsl(228, 97%, 42%)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                            width="48" height="48"
-                        >
-                            <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25" /><path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" type="rotate" dur="0.75s" values="0 12 12;360 12 12" repeatCount="indefinite" /></path>
-                        </svg>
-                    </div>
-                ) : error ? (
-                    <div className={Styles.containerError}>
-                        <p className={Styles.errorMessage}>{error}</p>
-                        <Link href="/clientes">Limpiar búsqueda</Link>
-                    </div>
-                ) : clientes.length > 0 ? (
-                    clientes.map(cliente => (
+                <EstadoPag
+                    loading={loading}
+                    error={error}
+                    isEmpty={clientes.length === 0}
+                    emptyMessage="No se encontraron tareas."
+                >
+                    {clientes.map(cliente => (
                         <Link key={cliente.id} href={`/clientes/${cliente.id}`}>
-                            <div  className={Styles.unCliente}>
+                            <div className={Styles.unCliente}>
                                 <p>{cliente.nombre}</p>
                                 <p>DNI/CIF: {cliente.cif}</p>
-
                                 <br />
                             </div>
                         </Link>
-                    ))
-                ) : (
-                    <p>No se encontraron clientes.</p>
-                )}
+                    ))}
+                </EstadoPag>
             </div>
 
             {pagination && (

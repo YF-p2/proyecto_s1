@@ -7,13 +7,13 @@ use App\Models;
 trait PaginatorTrait
 {
     
-    protected function getPagination($modelo){
+    protected function getPagination($modelo, $resPerPage = 4){
 
     
         $request = service('request');    
 
         $page = $request->getGet('page') ?? 1;
-        $resPerPage = 4;
+        //$resPerPage = 4;
         //paginate(resultados_max, grupo de Pager predeterminado, página a obtener)
         $data = $modelo->paginate($resPerPage, 'default', $page);
 

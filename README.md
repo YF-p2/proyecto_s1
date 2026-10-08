@@ -322,7 +322,7 @@ PROBLEMAS:
         ->
 
 
-2026/10/4
+2026/10/5
 --------------------------------
 
 * Creacion de parte del front clientes, menu, formulario de creacion nuevo user/cliente
@@ -336,7 +336,7 @@ PROBLMEAS:
 
 
 
-2026/10/4
+2026/10/6
 --------------------------------
 
 
@@ -358,10 +358,43 @@ PROBLEMAS:
 
 
 
-===================
-FuTUROS PASOS:
 
-* para editar podemos hacer clicable las targetas que hay en /clientes
-* en /clientes añadir botones de: nuevo (ir a form nuevo cli), maybe un search (buscar id/nif), sobre esta ultima pestaña añadir un boton de edit y pasarle los datos al form para que se puedan editar ez (maybe un form nuevo ???¿¿¿)
+2026/10/7
+--------------------------------
 
-===================
+* Se corrige la forma de enseñar los errores en el front
+
+* Se crea la ruta para editar los datos de un usuario
+
+* Corrección de bugs que evitaban actualización de errores
+
+* Mejoras visuales de la interfaz
+
+* Se mejora la lógica del formulario para que sea reutilizable. Se crea un nuevo component
+
+* Se añade la ruta '$routes->options('clientes/(:num)', 'ClienteController::options')' para acceder a la página con ID de un cliente. 
+
+
+PROBLEMAS:
+    ** Al intentar modificar un usuario había errores de fetching, is_unique evitaba los cambios de ciertos parametros y no se visualizaban ciertos errores que causaban fallos al modificar datos 
+        -> el updete de 'ClienteController' se modifica para que cambie las ValidationRules temporalmente eliminando los  'is_unique'.
+
+        -> se incluye visualizacion de error por formato incorrecto el el form del telefono (generaba error 400 y no veía por qué). Los errores del back no llegaban al front
+
+    
+
+2026/10/8
+--------------------------------
+
+* Se terminan de corregir los errores de ayer que evitaban la actualización de datos de un cliente
+
+* Se crean las rutas /proyectos, /proyectos/id y /tareas
+
+* Se adapta el comportamiento del back y paginacion (ahora acepta N elementos por página en vez de un valor fijo)
+
+* Se crea un componente reutilizable <EstadoPag> para unificar la gestion de loading, error y estado vacío
+
+PROBLEMAS:
+    ** El pagination de proyectos cambia la url y me lleva a la pág correspondiente PERO de 
+    /clientes -> ahora Pagination.jsx acepta un tercer parámetro, 'myPath', que cambia la ulr automaticamente dependiendo de dónde venga la peticion
+

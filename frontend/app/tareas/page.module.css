@@ -1,0 +1,26 @@
+.titulo{
+    text-align: center;
+}
+.containertareas table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    
+}
+
+.containertareas th,
+.containertareas td {
+    border: 1px solid #ccc;
+    padding: 0.7rem;
+    text-align: center;
+
+}
+
+.containertareas th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.containertareas tr:nth-child(even) {
+    background-color: #fafafa;
+}

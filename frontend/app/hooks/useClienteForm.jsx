@@ -43,14 +43,17 @@ export function useClienteForm({ initialValues = VALORES_VACIOS, clienteId = nul
     const validateForm = () => {
         const localErrors = {};
 
-        if (!formValues.nombre.trim())
-            localErrors.nombre = "El nombre es obligatorio";
+        if (!formValues.nombre.trim()) localErrors.nombre = "El nombre es obligatorio";
+
         if (!formValues.cif.trim()) localErrors.cif = "El CIF es obligatorio";
 
         if (!formValues.email.trim()) {
             localErrors.email = "El eMail es obligatorio";
         }
 
+        if(formValues.telefono.length >9 || formValues.telefono <9){
+            localErrors.telefono = "El teléfono debe contener 9 dígitos"
+        }
         if (formValues.estado !== "activo" && formValues.estado !== "inactivo") {
             localErrors.estado = "Debe seleccionar uno de los estados";
         }

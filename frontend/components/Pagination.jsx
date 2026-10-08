@@ -1,7 +1,7 @@
 import Styles from "./Pagination.module.css"
 import Link from "next/link"
 
-function Pagination({ currentPage = 1, totalPages = 1, onPageChange }) {
+function Pagination({ currentPage = 1, totalPages = 1, myPath = "/clientes" }) {
 
     const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
 
@@ -23,7 +23,7 @@ function Pagination({ currentPage = 1, totalPages = 1, onPageChange }) {
         <nav className={Styles.navContainer}>
             <div className={Styles.paginationContainer}>
                 <Link
-                    href={`/clientes?page=${currentPage - 1}`}
+                    href={`${myPath}?page=${currentPage - 1}`}
                     style={styleLinkLeft}
                     aria-disabled={currentPage === 1}
                 >
@@ -37,7 +37,7 @@ function Pagination({ currentPage = 1, totalPages = 1, onPageChange }) {
                 {pages.map(page => (
                     <Link
                         key={page}
-                        href={`/clientes?page=${page}`}
+                        href={`${myPath}?page=${page}`}
                         className={currentPage === page ? Styles.isActive : ""}
                     >
                         {page}
@@ -45,7 +45,7 @@ function Pagination({ currentPage = 1, totalPages = 1, onPageChange }) {
                 ))}
 
                 <Link
-                    href={`/clientes?page=${currentPage + 1}`}
+                    href={`${myPath}?page=${currentPage + 1}`}
                     style={styleLinkRight } 
                     aria-disabled={currentPage === totalPages}
                 >
