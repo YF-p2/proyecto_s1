@@ -101,4 +101,9 @@ class ProyectoController extends BaseController
                     'message' => "Proyecto con ID $id no ha sido encontrado"
                 ])->setStatusCode(404);
     }
+
+    public function options()
+    {
+        return $this->response->setStatusCode(204);
+    }
 }

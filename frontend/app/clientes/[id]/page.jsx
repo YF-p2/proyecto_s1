@@ -36,9 +36,9 @@ export default async function ClienteDetalle({ params }) {
                 <div className={Styles.btnContainer}>
                     <Link href="/clientes" className={Styles.botVolver}>Lista Clientes</Link>
                     <DeleteClienteBtn
-                        id={id}
+                        idDelete={id}
                         seccion="cliente"
-                        direccion="/cliente"
+                        direccion="/clientes"
                     />
 
                 </div>

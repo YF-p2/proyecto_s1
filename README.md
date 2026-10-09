@@ -398,3 +398,15 @@ PROBLEMAS:
     ** El pagination de proyectos cambia la url y me lleva a la pág correspondiente PERO de 
     /clientes -> ahora Pagination.jsx acepta un tercer parámetro, 'myPath', que cambia la ulr automaticamente dependiendo de dónde venga la peticion
 
+
+
+2026/10/8
+--------------------------------
+
+* Implementacion eliminacion de clientes
+
+* Se completa el CRUD de proyectos
+
+* Se crea el formulario de proyectos
+
+* Se "unifica" el comportamiento de 'DeleteClienteBtn' para que borre el contenido tanto de cliente como de proyecto

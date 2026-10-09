@@ -21,7 +21,9 @@ $routes->group('api', static function ($routes) {
     $routes->options('clientes', 'ClienteController::options');
     $routes->options('clientes/(:num)', 'ClienteController::options');
 
+    $routes->get('clientes/all', 'ClienteController::all');
     $routes->resource('clientes', ['controller' => 'ClienteController']);
+    
 
     $routes->options('proyectos', 'ProyectoController::options');
     $routes->options('proyectos/(:num)', 'ProyectoController::options');

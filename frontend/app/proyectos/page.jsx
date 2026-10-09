@@ -48,6 +48,14 @@ export default function Proyectos() {
         <>
             <h1 className={Styles.titulo}>Lista de Proyectos</h1>
 
+            <div className={Styles.opcionesContainer}>
+                <Link
+                    href={`/proyectos/nuevo`}
+                    className={Styles.botNuevo}
+                >
+                    Nuevo
+                </Link>
+            </div >
             <div className={Styles.containerProyectos}>
                 <EstadoPag
                     loading={loading}
@@ -69,13 +77,15 @@ export default function Proyectos() {
                 </EstadoPag>
             </div>
 
-            {pagination && (
-                <Pagination
-                    currentPage={pagination.currentPage}
-                    totalPages={pagination.totalPages}
-                    myPath="/proyectos"
-                />
-            )}
+            {
+                pagination && (
+                    <Pagination
+                        currentPage={pagination.currentPage}
+                        totalPages={pagination.totalPages}
+                        myPath="/proyectos"
+                    />
+                )
+            }
 
         </>
 

@@ -22,6 +22,19 @@ export async function getClientes(page = 1, search = "") {
 }
 
 
+export async function getAllClientes() {
+    const response = await fetch(`${API_URL}/api/clientes/all`)
+
+    if (!response.ok) {
+        throw new Error('No se puede obtener la lista de con todos los clientes')
+    }
+
+    return response.json()
+}
+
+
+
+
 export async function getClienteId(id) {
 
     const response = await fetch(`${API_URL}/api/clientes/${id}`)
@@ -138,6 +151,53 @@ export async function getProyectosId(id) {
     }
 
     return response.json()
+}
+
+
+export async function createProyecto(data) {
+    const response = await fetch(`${API_URL}/api/proyectos`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    console.log("STATUS:", response.status);
+    console.log("RESULT:", JSON.stringify(result, null, 2));
+
+    if (!response.ok) {
+        const error = new Error(
+            "No se ha podido crear el proyecto"
+        )
+
+        error.errors = result.errors
+        throw error
+    }
+
+    return result;
+}
+
+
+
+export async function updateProyecto(id, data) {
+    const response = await fetch(`${API_URL}/api/proyectos/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    })
+
+    const result = await response.json()
+
+    if (!response.ok) {
+        const error = new Error("No se ha actualizado el proyecto")
+        error.errors = result.errors
+        throw error
+    }
+
+    return result
 }
 
 

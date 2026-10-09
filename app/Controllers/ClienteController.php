@@ -39,6 +39,20 @@ class ClienteController extends BaseController
         return $this->response->setJSON($this->getPagination($this->modelo));
     }
 
+
+    public function all(){
+
+        $clientes = $this->modelo
+            ->select('id, nombre')
+            ->orderBy('id', 'ASC')
+            ->findAll();
+
+        return $this->response->setJSON($clientes);
+
+    }
+
+
+
     public function show($id = null)
     {
         $cliente = $this->modelo->find($id);

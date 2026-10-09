@@ -13,7 +13,7 @@ export default function ClienteForm({initialValues, clienteId}) {
         serverError,
         isSending,
         isSubmitted,
-        isEditing,
+        isEdit,
         handleChange,
         handleSubmit,
 
