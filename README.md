@@ -409,4 +409,4 @@ PROBLEMAS:
 
 * Se crea el formulario de proyectos
 
-* Se "unifica" el comportamiento de 'DeleteClienteBtn' para que borre el contenido tanto de cliente como de proyecto
+* Hacer de 'DeleteClienteBtn' un componente reutilizable para que borre el contenido tanto de cliente como de proyecto
