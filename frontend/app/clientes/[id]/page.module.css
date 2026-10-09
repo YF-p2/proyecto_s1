@@ -16,6 +16,8 @@
     /*border: solid 1px rgb(0, 47, 255);*/
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.205);
     border-radius: 8px;
+
+    min-width: 220px;
 }
 
 .acciones {
@@ -32,12 +34,18 @@
     padding: 0.3rem 0.8rem;
 }
 
+.btnContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
 .botVolver{
     text-decoration: none;
     color: black;
     padding: 0.3rem;
 
-    border: solid 1px black;
+    border: solid 2px black;
     border-radius: 6px;
 }
 .botVolver:hover{

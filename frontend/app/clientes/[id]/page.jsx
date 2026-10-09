@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getClienteId } from "../../../services/api";
+import DeleteClienteBtn from "@/components/DeleteClienteBtn";
 
 import Link from "next/link"
 import Styles from "./page.module.css";
@@ -32,7 +33,16 @@ export default async function ClienteDetalle({ params }) {
 
                 </div>
 
-                <Link href="/clientes" className={Styles.botVolver}>Lista Clientes</Link>
+                <div className={Styles.btnContainer}>
+                    <Link href="/clientes" className={Styles.botVolver}>Lista Clientes</Link>
+                    <DeleteClienteBtn
+                        id={id}
+                        seccion="cliente"
+                        direccion="/cliente"
+                    />
+
+                </div>
+
             </div>
         </>
     );

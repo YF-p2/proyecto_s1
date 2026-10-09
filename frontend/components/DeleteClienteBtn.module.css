@@ -1,0 +1,14 @@
+.btnBorrar{
+
+    color: black;
+    padding: 0.4rem;
+
+    border: solid 2px black;
+    border-radius: 6px;
+    background-color: white;
+    cursor:pointer;
+}
+
+.btnBorrar:hover{
+    background-color: rgba(255, 47, 47, 0.205);
+}

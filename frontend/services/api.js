@@ -96,6 +96,22 @@ export async function updateCliente(id, data) {
 }
 
 
+export default async function deleteCliente(id) {
+    const response = await fetch(`${API_URL}/api/clientes/${id}`, {
+        method: "DELETE",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        const error = new Error("No se ha podido eliminar el cliente");
+        error.errors = result.errors;
+        throw error;
+    }
+
+    return result;
+}
+
 
 export async function getProyectos(page = 1) {
 
@@ -122,6 +138,23 @@ export async function getProyectosId(id) {
     }
 
     return response.json()
+}
+
+
+export  async function deleteProyecto(id) {
+    const response = await fetch(`${API_URL}/api/proyectos/${id}`, {
+        method: "DELETE",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        const error = new Error("No se ha podido eliminar el proyecto");
+        error.errors = result.errors;
+        throw error;
+    }
+
+    return result;
 }
 
 
