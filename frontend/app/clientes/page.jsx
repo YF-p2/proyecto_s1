@@ -22,6 +22,7 @@ export default function Clientes() {
     const page = Number(searchParams.get("page")) || 1;
     const search = searchParams.get("search") || "";
 
+    //establecemos logica para tener una key que indique si la pag se ha cargado o no
     const key = `${page}|${search}`;
     const loading = loadedKey !== key;
 
@@ -55,9 +56,9 @@ export default function Clientes() {
     }, [page, search, key]);
 
 
-
+    //desestructuración de useSearchForm()
     const {
-        search: searchInput,
+        search: searchInput, //se inyecta como value del input para vincularlo con el hook
         handleChange,
         handleSubmit
     } = useSearchForm();

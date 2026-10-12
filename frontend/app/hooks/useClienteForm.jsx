@@ -23,7 +23,8 @@ export function useClienteForm({ initialValues = VALORES_VACIOS, clienteId = nul
     const [serverError, setServerError] = useState("");
 
 
-
+    //depende de los distintos onChange de ClienteForm
+    //se creao objeto con pares clave-valor (name-value)
     const handleChange = (e) => {
         const { name, value } = e.target
 
@@ -93,7 +94,7 @@ export function useClienteForm({ initialValues = VALORES_VACIOS, clienteId = nul
                 setErrors(error.errors);
                 setServerError("");
             } else {
-                setServerError(error.message);
+                setServerError(error.message); //errores del back
             }
         } finally {
             setIsSending(false);

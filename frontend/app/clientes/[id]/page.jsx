@@ -5,8 +5,12 @@ import DeleteClienteBtn from "@/components/DeleteClienteBtn";
 import Link from "next/link"
 import Styles from "./page.module.css";
 
+//con 'params' extraemos valores variables de la ruta de archivos/url -> params: {id: X}
 export default async function ClienteDetalle({ params }) {
-    const { id } = await params;
+
+    //el valor del 'identificador' que queremos es el nombre de la carpeta "variable", es decir, [id]
+    //  de ahí el propio Router sabe cual es la variable que queremos.
+    const { id } = await params; // { x } debe coincidir con nombre de esa carpeta
     const cliente = await getClienteId(id);
 
     console.log("ID:", id);
