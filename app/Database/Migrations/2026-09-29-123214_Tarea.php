@@ -3,13 +3,21 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use Config\Database;
 
 class Tarea extends Migration
 {
     public function up()
     {
+
+        $db = Database::connect();
+
+        if ($db->tableExists('tareas')) {
+            return;
+        }
+
         $this->forge->addField([
-            'id'=>[
+            'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -28,7 +36,7 @@ class Tarea extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'prioridad' =>[
+            'prioridad' => [
                 'type' => 'ENUM',
                 'constraint' => ['baja', 'media', 'alta'],
                 'default' => 'baja',
@@ -51,7 +59,6 @@ class Tarea extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('proyectos');
-
+        $this->forge->dropTable('tareas');
     }
 }

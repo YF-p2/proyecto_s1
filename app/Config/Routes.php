@@ -3,9 +3,11 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
+
 $routes->get('/', 'Home::index');
 $routes->get('api/health', 'Health::index');
 
+$routes->post('api/login', 'AuthController::login');
 
 /*
 generamos un grupo "api" que engloba las diferentes rutas a las 3 tablas
@@ -16,8 +18,11 @@ generamos un grupo "api" que engloba las diferentes rutas a las 3 tablas
  Además, soporta nativamente los parametros de consutla HTTP en las URL
 */
 
-$routes->group('api', static function ($routes) {
-    
+$routes->group('api', ['filter' => 'tokens'], static function ($routes) {
+
+    $routes->post('logout', 'AuthController::logout');
+    $routes->get('me', 'AuthController::me');
+
     $routes->options('clientes', 'ClienteController::options');
     $routes->options('clientes/(:num)', 'ClienteController::options');
 

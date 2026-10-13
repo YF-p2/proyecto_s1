@@ -410,3 +410,71 @@ PROBLEMAS:
 * Se crea el formulario de proyectos
 
 * Hacer de 'DeleteClienteBtn' un componente reutilizable para que borre el contenido tanto de cliente como de proyecto
+
+
+2026/10/13
+--------------------------------
+
+* adicion de 'frontend' al compose.yml y comprobar que se puede levantar el contenedor con docker compose
+
+* crear Dockerfile en el frontend
+
+* Agregamos al proyecto la biblioteca 'Shield' propia de Codeigniter para los procesos de autentificacion y gestion de usuarios.
+    - Se añaden a 'Filters.php' un conjunto de clases manualmente.
+    - Se crea un seeder para los usuarios: admin y user
+    - En el proceso se crean automaticamente los archivos de configuracion: AuthGroups y Auth
+
+-----
+# Instalación de Shield (pasos habituales; ya los tenías hechos)
+docker compose exec app composer require codeigniter4/shield
+docker compose exec app php spark shield:setup
+docker compose exec app php spark migrate --all
+
+# Crear los usuarios de prueba
+docker compose exec app php spark db:seed UsersSeeder
+
+# Comprobar tablas
+docker compose exec app php spark db:table users
+docker compose exec app php spark db:table auth_identities
+docker compose exec app php spark db:table auth_groups_users
+
+# 1. Sin token: debe dar 401
+curl.exe -i http://localhost:8080/api/clientes
+
+# 2. Crear el archivo con las credenciales y hacer login
+'{"email":"admin@correo.es","password":"admin123_"}' | Out-File -Encoding ascii login.json
+curl.exe -i -X POST http://localhost:8080/api/login -H "Content-Type: application/json" --data-binary "@login.json"
+
+# 3. Guardar el token en una variable
+$resp = curl.exe -s -X POST http://localhost:8080/api/login -H "Content-Type: application/json" --data-binary "@login.json" | ConvertFrom-Json
+$token = $resp.token
+
+# 4. Usar el token
+curl.exe -i http://localhost:8080/api/me -H "Authorization: Bearer $token"
+curl.exe -i http://localhost:8080/api/clientes -H "Authorization: Bearer $token"
+
+# 5. Logout y comprobar que el token queda invalidado (el segundo debe dar 401)
+curl.exe -i -X POST http://localhost:8080/api/logout -H "Authorization: Bearer $token"
+curl.exe -i http://localhost:8080/api/me -H "Authorization: Bearer $token"
+
+# 6. Limpiar el archivo con la contraseña
+Remove-Item login.json
+------
+* Se instala adminer para ver la BD visualmente
+
+* Definir permisos para admin
+
+* 
+
+
+PROBLEMAS:
+
+*** Cuando se quiso acceder guardar users de prueba con la funcion '->save($user)' se observa que no guarda nada. Esto se debe a que Shield separa los datos de usuario de los datos de inicio de sesion (en auth_identities)
+    -> cuando se crea un user en el seeder se le agrega un párametro de la tabla de 'users'
+
+
+=====
+acabar authgroups para user
+
+en los controllers se establecen los "filtros" para dar acceso a admin, user etc -> segun lo que sea, que sea necesario ser admin o que coincida id del user que está conectado
+=====
