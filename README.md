@@ -473,6 +473,24 @@ PROBLEMAS:
     -> cuando se crea un user en el seeder se le agrega un párametro de la tabla de 'users'
 
 
+
+2026/10/14
+--------------------------------
+
+* Aplicamos filtrado en Routes y la reestructuramos
+
+* Nos aseguramos que user / admin tengan sus permisos correspondientes
+
+* Se decide usar el patron BFF en nextjs para tener un intermediario entre codeigniter y el navegador, usando cookies httpOnly para almacenar los token de usuario
+
+* Se crea la logica del login y logout
+
+* Se empieza a hacer el login para el user
+
+PROBLEMAS:
+*** Redireccion en rutas de escritura en vez de darnos un statuscode 403. Esto se debe a que 'permission' en Shield actúa default de esa manera. Lo solucionamos creando un nuevo filtro en '/app/filters' y añadiendolo en /app/config/filters.php
+
+
 =====
 acabar authgroups para user
 

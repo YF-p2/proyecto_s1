@@ -24,6 +24,7 @@ use CodeIgniter\Shield\Filters\PermissionFilter;
 use CodeIgniter\Shield\Filters\SessionAuth;
 use CodeIgniter\Shield\Filters\TokenAuth;
 
+use App\Filters\ApiPermissionFiltro;
 
 class Filters extends BaseFilters
 {
@@ -56,6 +57,8 @@ class Filters extends BaseFilters
         'permission'  => PermissionFilter::class,
         'session'     => SessionAuth::class,
         'tokens'      => TokenAuth::class,
+
+        'api-permission' => ApiPermissionFiltro::class,
     ];
 
     /**

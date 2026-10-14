@@ -1,0 +1,4 @@
+{
+    "error": "Forbidden",
+    "message": "No tiene permiso para realizar esta operación"
+}

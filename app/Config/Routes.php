@@ -9,6 +9,10 @@ $routes->get('api/health', 'Health::index');
 
 $routes->post('api/login', 'AuthController::login');
 
+$routes->options('api/login', 'ClienteController::options');
+$routes->options('api/logout', 'ClienteController::options');
+$routes->options('api/me', 'ClienteController::options');
+
 /*
 generamos un grupo "api" que engloba las diferentes rutas a las 3 tablas
  ->clientes, proyectos, tareas
@@ -18,24 +22,72 @@ generamos un grupo "api" que engloba las diferentes rutas a las 3 tablas
  Además, soporta nativamente los parametros de consutla HTTP en las URL
 */
 
+$routes->options('api/clientes', 'ClienteController::options');
+$routes->options('api/clientes/(:num)', 'ClienteController::options');
+$routes->options('api/clientes/all', 'ClienteController::options');
+
+$routes->options('api/proyectos', 'ProyectoController::options');
+$routes->options('api/proyectos/(:num)', 'ProyectoController::options');
+
+//$routes->options('api/tareas', 'TareaController::options');
+//$routes->options('api/tareas/(:num)', 'TareaController::options');
+
+
 $routes->group('api', ['filter' => 'tokens'], static function ($routes) {
 
     $routes->post('logout', 'AuthController::logout');
     $routes->get('me', 'AuthController::me');
 
-    $routes->options('clientes', 'ClienteController::options');
-    $routes->options('clientes/(:num)', 'ClienteController::options');
 
+    //lectura para cualquier usuario
+    $routes->get('clientes', 'ClienteController::index');
     $routes->get('clientes/all', 'ClienteController::all');
-    $routes->resource('clientes', ['controller' => 'ClienteController']);
-    
+    $routes->get('clientes/(:num)', 'ClienteController::show/$1');
 
-    $routes->options('proyectos', 'ProyectoController::options');
-    $routes->options('proyectos/(:num)', 'ProyectoController::options');
+    //modificaciones para usuarios con permisos 
+    $routes->post('clientes', 'ClienteController::create',
+        ['filter' => 'api-permission:clientes.create']
+    );
 
-    $routes->resource('proyectos', ['controller' => 'ProyectoController']);
+    $routes->put('clientes/(:num)', 'ClienteController::update/$1',
+        ['filter' => 'api-permission:clientes.edit']
+    );
 
-    $routes->resource('tareas', ['controller' => 'TareaController']);
+    $routes->delete('clientes/(:num)', 'ClienteController::delete/$1',
+        ['filter' => 'api-permission:clientes.delete']
+    );
+
+
+    $routes->get('proyectos', 'ProyectoController::index');
+    $routes->get('proyectos/(:num)', 'ProyectoController::show/$1');
+
+    $routes->post('proyectos', 'ProyectoController::create',
+        ['filter' => 'api-permission:proyectos.create']
+    );
+
+    $routes->put('proyectos/(:num)', 'ProyectoController::update/$1',
+        ['filter' => 'api-permission:proyectos.edit']
+    );
+
+    $routes->delete('proyectos/(:num)', 'ProyectoController::delete/$1',
+        ['filter' => 'api-permission:proyectos.delete']
+    );
+
+
+    $routes->get('tareas', 'TareaController::index');
+    $routes->get('tareas/(:num)', 'TareaController::show/$1');
+
+    $routes->post('tareas', 'TareaController::create',
+        ['filter' => 'api-permission:tareas.create']
+    );
+
+    $routes->put('tareas/(:num)', 'TareaController::update/$1',
+        ['filter' => 'api-permission:tareas.edit']
+    );
+
+    $routes->delete('tareas/(:num)', 'TareaController::delete/$1',
+        ['filter' => 'api-permission:tareas.delete']
+    );
 
     /*
     $routes->get('api/clientes', 'ClienteController::index');
