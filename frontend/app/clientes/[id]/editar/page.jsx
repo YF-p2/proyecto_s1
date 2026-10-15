@@ -1,5 +1,5 @@
 import ClienteForm from "@/components/ClienteForm";
-import { getClienteId } from "@/services/api";
+import { getClienteId } from "@/services/apiServer";
 import { notFound } from "next/navigation";
 
 export default async function EditarCliente({ params }) {

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getClienteId } from "../../../services/api";
+import { getClienteId } from "../../../services/apiServer";
 import DeleteClienteBtn from "@/components/DeleteClienteBtn";
 
 import Link from "next/link"

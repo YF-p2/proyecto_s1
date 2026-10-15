@@ -28,16 +28,16 @@ export function useClienteForm({ initialValues = VALORES_VACIOS, clienteId = nul
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        setFormValues({
+        setFormValues((prev) =>({
             ...prev,
             [name]: value
-        })
+        }))
 
         if (errors[name]) {
-            setErrors({
+            setErrors((prev) => ({
                 ...prev,
                 [name]: ''
-            })
+            }))
         }
     }
 

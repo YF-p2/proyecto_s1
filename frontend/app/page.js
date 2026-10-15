@@ -10,6 +10,7 @@ export default function Home() {
     const [clientes, setClientes] = useState([]);
     const [proyectos, setProyectos] = useState([]);
     const [tareas, setTareas] = useState([]);
+    const [error, setError] = useState({})
 
      useEffect(() => {
             getClientes()

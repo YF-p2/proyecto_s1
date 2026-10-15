@@ -1,5 +1,5 @@
 import ProyectoForm from "@/components/ProyectoForm";
-import { getProyectosId } from "@/services/api";
+import { getProyectosId } from "@/services/apiServer";
 import { notFound } from "next/navigation";
 
 export default async function Editarproyecto({ params }) {

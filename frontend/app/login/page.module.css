@@ -1,0 +1,89 @@
+.errorForm {
+    font-size: small;
+    color: rgb(197, 2, 2);
+    margin: 4px 0;
+}
+
+
+.formContainer,
+.miForm,
+.formValueContainer {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+
+
+.miForm {
+    min-width: 400px;
+    border: solid 2px black;
+    box-shadow: 0 0 6px 1px black;
+
+    border-radius: 12px;
+    padding: 1rem;
+
+}
+
+.formValueContainer {
+    gap: 0.8rem;
+
+    input{
+        width: 12rem;
+        height: 1.6rem;
+        border-radius: 8px;
+        border: 1px solid black;
+        padding-left: 6px;
+    }
+
+}
+
+.btnEnvio {
+    all: unset;
+
+    padding: 0.7rem;
+    width: 80%;
+    text-align: center;
+
+    border-radius: 10px;
+    background-color: rgb(252, 86, 113);
+
+    color: white;
+}
+
+.btnEnvio:hover {
+    background-color: rgb(255, 41, 77);
+    cursor: pointer;
+}
+
+.errorEnvio {
+
+    width: min(20rem, calc(100% - 2rem));
+    min-height: 3rem;
+    height: auto;
+    font-weight: bolder;
+    font-size: 0.85rem;
+
+    margin: 3rem auto 0;
+    padding: 0.5rem;
+
+    box-sizing: border-box;
+
+    border-radius: 6px;
+    box-shadow: 2px 5px 9px rgba(0, 0, 0, 0.267);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    animation: desaparecer 3s forwards;
+
+    color: rgb(236, 10, 10);
+    background-color: rgba(255, 222, 222, 0.678);
+
+}

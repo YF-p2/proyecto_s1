@@ -1,6 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-
+const API_URL = "/api/proxy";
 
 export async function getClientes(page = 1, search = "") {
 
@@ -12,7 +10,7 @@ export async function getClientes(page = 1, search = "") {
         params.set("search", search)
     }
 
-    const response = await fetch(`${API_URL}/api/clientes?${params.toString()}`)
+    const response = await fetch(`${API_URL}/clientes?${params.toString()}`)
 
     if (!response.ok) {
         throw new Error('No se puede obtener la lista de clientes')
@@ -23,7 +21,7 @@ export async function getClientes(page = 1, search = "") {
 
 
 export async function getAllClientes() {
-    const response = await fetch(`${API_URL}/api/clientes/all`)
+    const response = await fetch(`${API_URL}/clientes/all`)
 
     if (!response.ok) {
         throw new Error('No se puede obtener la lista de con todos los clientes')
@@ -34,10 +32,10 @@ export async function getAllClientes() {
 
 
 
-
+/*
 export async function getClienteId(id) {
 
-    const response = await fetch(`${API_URL}/api/clientes/${id}`)
+    const response = await fetch(`${API_URL}/clientes/${id}`)
 
     if (response.status === 404) return null;
 
@@ -47,10 +45,10 @@ export async function getClienteId(id) {
 
     return response.json()
 }
-
+*/
 
 export async function createCliente(data) {
-    const response = await fetch(`${API_URL}/api/clientes`, {
+    const response = await fetch(`${API_URL}/clientes`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -82,7 +80,7 @@ export async function updateCliente(id, data) {
     console.log("DATA:", data);
     console.log("JSON:", JSON.stringify(data));
 
-    const response = await fetch(`${API_URL}/api/clientes/${id}`, {
+    const response = await fetch(`${API_URL}/clientes/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -110,7 +108,7 @@ export async function updateCliente(id, data) {
 
 
 export default async function deleteCliente(id) {
-    const response = await fetch(`${API_URL}/api/clientes/${id}`, {
+    const response = await fetch(`${API_URL}/clientes/${id}`, {
         method: "DELETE",
     });
 
@@ -131,7 +129,7 @@ export async function getProyectos(page = 1) {
     const params = new URLSearchParams();
     params.set("page", page);
 
-    const response = await fetch(`${API_URL}/api/proyectos?${params.toString()}`)
+    const response = await fetch(`${API_URL}/proyectos?${params.toString()}`)
 
     if (!response.ok) {
         throw new Error('No se pueden obtener la lista de proyectos')
@@ -140,9 +138,10 @@ export async function getProyectos(page = 1) {
 }
 
 
+/*
 export async function getProyectosId(id) {
 
-    const response = await fetch(`${API_URL}/api/proyectos/${id}`)
+    const response = await fetch(`${API_URL}/proyectos/${id}`)
 
     if (response.status === 404) return null;
 
@@ -152,10 +151,11 @@ export async function getProyectosId(id) {
 
     return response.json()
 }
+*/
 
 
 export async function createProyecto(data) {
-    const response = await fetch(`${API_URL}/api/proyectos`, {
+    const response = await fetch(`${API_URL}/proyectos`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -183,7 +183,7 @@ export async function createProyecto(data) {
 
 
 export async function updateProyecto(id, data) {
-    const response = await fetch(`${API_URL}/api/proyectos/${id}`, {
+    const response = await fetch(`${API_URL}/proyectos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -202,7 +202,7 @@ export async function updateProyecto(id, data) {
 
 
 export  async function deleteProyecto(id) {
-    const response = await fetch(`${API_URL}/api/proyectos/${id}`, {
+    const response = await fetch(`${API_URL}/proyectos/${id}`, {
         method: "DELETE",
     });
 
@@ -219,7 +219,7 @@ export  async function deleteProyecto(id) {
 
 
 export async function getTareas() {
-    const response = await fetch(`${API_URL}/api/tareas`)
+    const response = await fetch(`${API_URL}/tareas`)
     if (!response.ok) {
         throw new Error('No se pueden obtener la lista de tareas')
     }

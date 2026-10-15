@@ -491,8 +491,34 @@ PROBLEMAS:
 *** Redireccion en rutas de escritura en vez de darnos un statuscode 403. Esto se debe a que 'permission' en Shield actúa default de esa manera. Lo solucionamos creando un nuevo filtro en '/app/filters' y añadiendolo en /app/config/filters.php
 
 
-=====
-acabar authgroups para user
 
-en los controllers se establecen los "filtros" para dar acceso a admin, user etc -> segun lo que sea, que sea necesario ser admin o que coincida id del user que está conectado
-=====
+2026/10/15
+--------------------------------
+
+* Se termina el formulario de inicio de sesión
+
+* Se crea una ruta dinámica y un proxy para conectar el navegador con el backend usando a nextjs como intermediario
+
+* Se modifica el valor de API_URL en 'api.js' para que las peticiones pasen por el proxy
+    -> hacemos que las peticiones en front vayan por ':3000/api/proxy/...', para que el servidor de next.js las intercepte y construya las nuevas url para codeigniter
+    -> evitamos que el navegador hable directamente con el back
+    -> api.js está pensado para ser usado por client components (use client)(navegador)
+
+* Nos aseguramos que los valores de INTERNAL_API_URL en '.env.local' sea el correspondiente segun levantemos el front desde docker o desde local para que se establezca la conexion y se hagan los fetching de datos
+
+* Creamos 'apiServer.js' para manejar las cookies y enviarlas a codeigniter. Lo hacemos para las "pestañas de detalle" ya que carecen de manejos de estado (useState) o de efecto (useEffect) -> serian Client Components (se usa 'use client' en los page.jsx)
+    Al tabajar ahora con Server Components (sin 'use client') las llamadas se hacen las llamadas desde el server de Next.js, por lo que necesitamos un fetching directo de la info del server -> creamos la funcion 'serverFetch'
+    
+    -> menor timpo de carga y mayor seguridad al usar Server Component
+    
+
+
+PROBLEMAS:
+    *** Fallo de fetching y error 500. Al parecer hubo error al instalar Shield y la clase TokenAuth no se instaló. Instalamos la dependencia.
+    PHP no tiene activa la extension 'intl' necesaria para CodeIgniter. Se descomenta en PHP.ini
+
+    Además, faltaban por aplicar las migraciones correspondientes:
+    - docker compose up -d
+    - docker compose exec app php spark migrate --all
+
+    Tras la migración deja de dar 500 y nos da 401, lo esperado debido a los filtros
