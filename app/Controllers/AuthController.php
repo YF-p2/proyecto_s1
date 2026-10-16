@@ -47,8 +47,11 @@ class AuthController extends BaseController{
 
     public function me(){
         $user = auth('tokens')->user();
+        
         return $this->response->setJSON([
-            'id' => $user->id, 'email' => $user->email, 'roles' => $user->getGroups(),
+            'id' => $user->id, 
+            'email' => $user->email, 
+            'roles' => $user->getGroups(),
         ]);
     }
 }

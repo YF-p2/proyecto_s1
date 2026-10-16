@@ -56,21 +56,19 @@ export async function createCliente(data) {
         body: JSON.stringify(data)
     });
 
+    if (response.status === 400) {
+        const result = await response.json()
+        const error = new Error("Datos no válidos")
+        error.errors = result.errors
+        throw error
+    }
     const result = await response.json();
 
     console.log("STATUS:", response.status);
     console.log("RESULT:", JSON.stringify(result, null, 2));
 
-    if (!response.ok) {
-        const error = new Error(
-            "No se ha podido crear el cliente"
-        )
-
-        error.errors = result.errors
-        throw error
-    }
-
-    return result;
+    await checkAuth(response, "No se ha podido crear el cliente");
+    return response.json();
 }
 
 
@@ -86,24 +84,17 @@ export async function updateCliente(id, data) {
         body: JSON.stringify(data),
     })
 
-    const result = await response.json()
-
-    //=====
-    console.log("UPDATE STATUS:", response.status);
-    console.log("UPDATE RESULT:", result);
-    //=======
-
-    if (!response.ok) {
-        const error = new Error(
-            "No se ha actualizado el cliente"
-        )
-
+    if (response.status === 400) {
+        const result = await response.json()
+        const error = new Error("Datos no válidos")
         error.errors = result.errors
         throw error
     }
 
+    await checkAuth(response, "No se ha actualizado el cliente");
+    return response.json();
 
-    return result
+
 }
 
 
@@ -112,15 +103,8 @@ export default async function deleteCliente(id) {
         method: "DELETE",
     });
 
-    const result = await response.json();
-
-    if (!response.ok) {
-        const error = new Error("No se ha podido eliminar el cliente");
-        error.errors = result.errors;
-        throw error;
-    }
-
-    return result;
+    await checkAuth(response, "No se ha podido eliminar el cliente");
+    return response.json();
 }
 
 
@@ -131,11 +115,11 @@ export async function getProyectos(page = 1) {
 
     const response = await fetch(`${API_URL}/proyectos?${params.toString()}`)
 
-    if (!response.ok) {
-        throw new Error('No se pueden obtener la lista de proyectos')
-    }
-    return response.json()
+
+    await checkAuth(response, "No se pueden obtener la lista de proyectos");
+    return response.json();
 }
+
 
 
 /*
@@ -163,21 +147,18 @@ export async function createProyecto(data) {
         body: JSON.stringify(data)
     });
 
-    const result = await response.json();
-
-    console.log("STATUS:", response.status);
-    console.log("RESULT:", JSON.stringify(result, null, 2));
-
-    if (!response.ok) {
-        const error = new Error(
-            "No se ha podido crear el proyecto"
-        )
-
+    if (response.status === 400) {
+        const result = await response.json()
+        const error = new Error("Datos no válidos")
         error.errors = result.errors
         throw error
     }
 
-    return result;
+    console.log("STATUS:", response.status);
+    console.log("RESULT:", JSON.stringify(result, null, 2));
+
+    await checkAuth(response, "No se ha podido crear el proyecto");
+    return response.json();
 }
 
 
@@ -189,41 +170,47 @@ export async function updateProyecto(id, data) {
         body: JSON.stringify(data),
     })
 
-    const result = await response.json()
-
-    if (!response.ok) {
-        const error = new Error("No se ha actualizado el proyecto")
+    if (response.status === 400) {
+        const result = await response.json()
+        const error = new Error("Datos no válidos")
         error.errors = result.errors
         throw error
     }
 
-    return result
+    await checkAuth(response, "No se ha actualizado el proyecto");
+    return response.json();
+
 }
 
 
-export  async function deleteProyecto(id) {
+export async function deleteProyecto(id) {
     const response = await fetch(`${API_URL}/proyectos/${id}`, {
         method: "DELETE",
     });
 
-    const result = await response.json();
+    await checkAuth(response, "No se ha podido eliminar el proyecto");
+    return response.json();
 
-    if (!response.ok) {
-        const error = new Error("No se ha podido eliminar el proyecto");
-        error.errors = result.errors;
-        throw error;
-    }
-
-    return result;
 }
 
 
 export async function getTareas() {
     const response = await fetch(`${API_URL}/tareas`)
-    if (!response.ok) {
-        throw new Error('No se pueden obtener la lista de tareas')
-    }
-    return response.json()
+
+    await checkAuth(response, "No se ha podido eliminar el proyecto");
+    return response.json();
 }
 
 
+async function checkAuth(response, mensaje) {
+    if (response.status === 401) {
+        window.location.href = "/login";
+        throw new Error("Sesión caducada");
+    }
+    if (response.status === 403) {
+        throw new Error("No tienes permiso para realizar esta acción");
+    }
+    if (!response.ok) {
+        throw new Error(mensaje);
+    }
+}

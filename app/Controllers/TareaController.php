@@ -20,6 +20,7 @@ class TareaController extends BaseController
 
     public function index()
     {
+        //obtiene un array plano
         $tareas = $this->modelo->findall();
 
         return $this->response->setJSON($tareas);

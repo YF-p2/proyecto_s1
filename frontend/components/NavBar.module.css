@@ -2,23 +2,56 @@
 .navContainer {
   background-color: #f8f9fa;
   padding: 1rem;
-  border-bottom: 1px solid #b1cfec;
+  border-bottom: 1px solid #242424;
+
 }
 
-.navList {
-  display: flex;             
+.navContainer .navList {
+  display: flex;   
+  flex-direction: row; 
+  width: 100%;         
   list-style: none;          
   margin: 0;
   padding: 0;
-  gap: 1.5rem;              
+  gap: 1.5rem;   
+
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .navList a {
   text-decoration: none;     
   color: #333;
   font-weight: 500;
+
+  display: block;
+  width: 100%;
 }
 
 .navList a:hover {
   color: #0070f3;           
+}
+
+
+.navList li:last-child{
+  margin-left: auto;
+  margin-right: 16%;
+
+  width: 120px;
+  text-align: center;
+  border: solid 1px black;
+  border-radius: 16px;
+
+  padding: 0.5rem;
+
+}
+
+.navList li:last-child:hover{
+  background-color: #13b4ff;
+
+  cursor: pointer;
+  a{
+    color: white;
+  }
 }

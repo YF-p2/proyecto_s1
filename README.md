@@ -522,3 +522,18 @@ PROBLEMAS:
     - docker compose exec app php spark migrate --all
 
     Tras la migración deja de dar 500 y nos da 401, lo esperado debido a los filtros
+
+
+==========
+
+hacer el logout
+poner botones de cerrar sesion
+
+revisar tareas:
+    endpoint user verificado
+    manejo de errores 401 y 403
+
+cerrar rutas para user -> para editar datos y borrarlos
+
+    igual personalizar avisos diciendo que user "no tiene acceso a esa accion"
+?????????

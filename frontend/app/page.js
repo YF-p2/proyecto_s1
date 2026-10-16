@@ -3,8 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { getClientes, getProyectos, getTareas } from "../services/api";
-import Styles from './globals.css'
-
+import "./globals.css"
 
 export default function Home() {
     const [clientes, setClientes] = useState([]);
@@ -12,17 +11,17 @@ export default function Home() {
     const [tareas, setTareas] = useState([]);
     const [error, setError] = useState({})
 
-     useEffect(() => {
-            getClientes()
-                .then(data => {
-                    setClientes(data.total); 
-                })
-                .catch(error => {
-                    setError(error.message);
-                });
-      }, []);
-      
-      useEffect(() => {
+    useEffect(() => {
+        getClientes()
+            .then(data => {
+                setClientes(data.total);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    }, []);
+
+    useEffect(() => {
         getProyectos()
             .then(data => {
                 setProyectos(data.total);
@@ -35,7 +34,8 @@ export default function Home() {
     useEffect(() => {
         getTareas()
             .then(data => {
-                setTareas(data.total);
+                console.log("Datos de tareas recibidos:", data);
+                setTareas(data.length);
             })
             .catch(error => {
                 setError(error.message);
@@ -44,13 +44,13 @@ export default function Home() {
 
     return (
         <>
-          <main>
-            <div className="containerGgeneraldata">
-              <p>Usuarios de la plataforma: {clientes}</p>
-              <p>Proyectos en la plataforma: {proyectos}</p>
-              <p>Tareas en la plataforma: {tareas}</p>
-            </div>
-          </main>
+            <main>
+                <div className="containerGgeneraldata">
+                    <p>Clientes de la plataforma: {clientes}</p>
+                    <p>Proyectos en la plataforma: {proyectos}</p>
+                    <p>Tareas en la plataforma: {tareas}</p>
+                </div>
+            </main>
         </>
     );
 }

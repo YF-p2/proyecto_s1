@@ -36,6 +36,7 @@ class ClienteController extends BaseController
         }
 
         //$clientes = $this->modelo->findAll();
+        //devolvemos un objeto con metadata
         return $this->response->setJSON($this->getPagination($this->modelo));
     }
 

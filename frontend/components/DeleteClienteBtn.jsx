@@ -1,7 +1,7 @@
 "use client"
 
-import  deleteCliente  from "@/services/api";
-import  { deleteProyecto }  from "@/services/api";
+import deleteCliente from "@/services/api";
+import { deleteProyecto } from "@/services/api";
 
 import { useState } from "react"
 import { useRouter } from "next/navigation";
@@ -59,18 +59,26 @@ export default function DeleteClienteBtn({
 
 
     return (
-        <div>
-            <button
-                type="button"
-                onClick={handleDelete}
-                disabled={loading}
-                className={Style.btnBorrar}
-            >
-                Eliminar {seccion}
-            </button>
+        <>
 
-            {error && <p>{error}</p>}
-        </div>
+            <div className={Style.container}>
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleDelete}
+                        disabled={loading}
+                        className={Style.btnBorrar}
+                    >
+                        Eliminar {seccion}
+                    </button>
+                </div>
+
+                <div>
+                    {error && <p>{error}</p>}
+                </div>
+
+            </div>
+        </>
 
     )
 

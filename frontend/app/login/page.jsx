@@ -69,7 +69,7 @@ export default function LoginPage() {
             router.refresh()
 
         } catch {
-            setServerError("No se puede conectar con el servidor");
+            setServerError(errors.message);
         } finally {
             setIsSending(false);
         }
@@ -90,8 +90,8 @@ export default function LoginPage() {
                             required value={valuesForm.email} onChange={handleChange}
                         />
                         {errors.email && (
-                                <p className={Styles.errorForm}>{errors.email}</p>
-                            )}
+                            <p className={Styles.errorForm}>{errors.email}</p>
+                        )}
                     </div>
 
                     <div className={Styles.formValueContainer}>
@@ -100,8 +100,8 @@ export default function LoginPage() {
                             value={valuesForm.password} onChange={handleChange}
                         />
                         {errors.password && (
-                                <p className={Styles.errorForm}>{errors.password}</p>
-                            )}
+                            <p className={Styles.errorForm}>{errors.password}</p>
+                        )}
                     </div>
 
                     <button type="submit" disabled={isSending} className={Styles.btnEnvio}>
